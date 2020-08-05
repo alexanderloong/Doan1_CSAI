@@ -15,14 +15,16 @@ def read_data(file_input):                                              # HÃ m Ä
     map_size, start, goal, map_game = [], [], [], []
     while True:
         data = file_input.readline()
+        data = data.split()
         if map_size == []:
-            map_size = [int(data[0]), int(data[2])]
+            
+            map_size = [int(data[0]), int(data[1])]
             continue
         if start == []:
-            start = [int(data[0]), int(data[2])]
+            start = [int(data[0]), int(data[1])]
             continue
         if goal == []:
-            goal = [int(data[0]), int(data[2])]
+            goal = [int(data[0]), int(data[1])]
             break
 
     for k in range(map_size[0]):
