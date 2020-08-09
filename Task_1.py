@@ -83,7 +83,7 @@ def neighbor(current):                                                  # Trả 
         if nb[i][0] == -1 or nb[i][0] > map_size[0] - 1:
             nb.pop(i)
             continue
-        if nb[i][1] == -1 or nb[i][1] > map_size[0] - 1:
+        if nb[i][1] == -1 or nb[i][1] > map_size[1] - 1:
             nb.pop(i)
             continue
         if map_game[nb[i][0]][nb[i][1]] == 1:
@@ -94,19 +94,19 @@ def neighbor(current):                                                  # Trả 
     i = 0
     while i < len(nb) :
         if nb[i] == NE:
-            if N and E not in nb:
+            if (N  not in nb) and (E  not in nb):
                 nb.pop(i)
                 continue
         if nb[i] == NW:
-            if N and W not in nb:
+            if (N  not in nb) and (W  not in nb):
                 nb.pop(i)
                 continue
         if nb[i] == SE:
-            if S and E not in nb:
+            if (S  not in nb) and (E  not in nb):
                 nb.pop(i)
                 continue
         if nb[i] == SW:
-            if S and W not in nb:
+            if (S  not in nb) and (W  not in nb):
                 nb.pop(i)
                 continue
         i += 1
@@ -151,7 +151,11 @@ def a_star(S, G):                                                       # Thuậ
             if nb.index in closeSet:                                    # Nếu có trong Close Set thì không xét
                 continue
 
-            d = euclid(current.index, nb.index)                       # Khoảng cách Mahattan của Current đến hàng xóm
+            for i in openSet:
+                if nb.index == i.index:
+                    nb = i
+
+            d = euclid(current.index, nb.index)                       # Khoảng cách Euclid của Current đến hàng xóm
             tentative_gScore = current.gScore + d                       # tentative_gScore = Start -> Current + Current -> Hàng xóm
 
             if tentative_gScore < nb.gScore or nb.gScore == 0:         # Nếu tentative_gScore nhỏ hơn gScore của hàng xóm đang có
@@ -165,6 +169,9 @@ def a_star(S, G):                                                       # Thuậ
 
     return -1
 
+
+input = 'cc.txt'
+output = 'output.txt'
 
 def main(input, output):
     #global map_size, start, goal, map_game
@@ -211,5 +218,5 @@ def main(input, output):
 
 
 if __name__ == '__main__':
-    
+    #main(input, output) 
     main(sys.argv[1], sys.argv[2])              # CMD: tenfile.py fileinput.txt fileoutput.txt
